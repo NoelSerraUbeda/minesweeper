@@ -21,21 +21,23 @@
 </head>
 
 <body>
-  <h1>Minesweeper</h1>
   <div class="game">
-    <div class="menu">
-      <div class="counter">
-        <h2>0</h2>
-      </div>
-      <div class="face">
-        <img src="icon/emoticon-happy-outline.svg">
-      </div>
+    <div class="counter">
+      <h2>0</h2>
+    </div>
+    <div class="face">
+      <h1>Minesweeper</h1>
+      <img src="icon/happy.svg">
     </div>
     <div class="container" id="container"></div>
     <button disabled class="reset">Reset</button>
+  </div>
+  <div id="modal-container" class="modal">
+    <div class="modal-content">
+      <p id="modal-text"></p>
+    </div>
   </div>
   <script src="js/app.js"></script>
 </body>
 
 </html>
-

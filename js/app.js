@@ -1,5 +1,6 @@
 const container = document.getElementById('container');
-
+const modal = document.getElementById('modal-container');
+const modalText = document.getElementById('modal-text');
 const rows = 10;
 const cols = 10;
 const mines = 20;
@@ -41,36 +42,50 @@ function renderGrid() {
       cell.dataset.col = j;
       cell.addEventListener('click', handleClick);
       container.appendChild(cell);
+
+      // // Muestra las minas al inicio
+      // if (grid[i][j].isMine) {
+      //   cell.classList.add('mine');
+      // }
     }
   }
 }
+
 
 function handleClick(event) {
   if (gameOver) return;
 
   const row = parseInt(event.target.dataset.row);
   const col = parseInt(event.target.dataset.col);
-  // Perder
+
   if (grid[row][col].isMine) {
     event.target.classList.add('mine');
     revealMines();
     gameOver = true;
-    alert('¡Perdiste!');
+    showModal('¡Perdiste!');
     resetButton.removeAttribute('disabled');
     document.dispatchEvent(new Event('gameEnd'));
-    document.querySelector('.face img').src = 'nueva_ruta_imagen_perder.png';
-  } else { // Ganar
+    document.querySelector('.face img').src = './icon/sad.svg';
+  } else {
     revealCell(row, col);
     if (checkWin()) {
       revealMines();
       gameOver = true;
-      alert('¡Ganaste!');
+      showModal('¡Ganaste!');
       resetButton.removeAttribute('disabled');
       document.dispatchEvent(new Event('gameEnd'));
+      document.querySelector('.face img').src = './icon/cool.svg';
     }
   }
 }
 
+function showModal(message) {
+  modalText.textContent = message;
+  modal.style.display = 'block';
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 3000);
+}
 
 function revealCell(row, col) {
   const cell = container.querySelector(`[data-row="${row}"][data-col="${col}"]`);
